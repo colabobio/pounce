@@ -1,16 +1,15 @@
-var Interface = function(sketch, scale=1) {
-    this.sketch = sketch;    
-    this.scaleFactor = scale;
-    this.focused = null;
-    this.drawn = [];
-    this.fonts = {};
-    this.widgets = {};
-    this.root = new Widget(this);
-};
+class Interface {
+    constructor(sketch, scale=1) {
+        this.sketch = sketch;    
+        this.scaleFactor = scale;
+        this.focused = null;
+        this.drawn = [];
+        this.fonts = {};
+        this.widgets = {};
+        this.root = new Widget(this);
+    }
 
-Interface.prototype = {
-
-    addWidget: function(w, parent=null, parentName=null) {
+    addWidget(w, parent=null, parentName=null) {
         if (parent) {
             parent.addChildren(w);
         } else {
@@ -28,72 +27,72 @@ Interface.prototype = {
         }
         
         w.setup();
-    },
+    }
 
-    getWidget: function(name) {
+    getWidget(name) {
         if (name in this.widgets) {
             return this.widgets[name];
         } else {
             return null;
         }            
-    },
+    }
 
-    addFont: function(name, size) {
+    addFont(name, size) {
         font = this.sketch.loadFont(name, this.scaleFactor * size);
         this.fonts[name + size.toString()] = font;
-    },
+    }
 
-    setFont: function(name, size) {
+    setFont(name, size) {
         let key = name + size.toString();
         if (key in this.fonts) {
             font = this.fonts[key];
             this.sketch.textFont(font);        
         }
-    },
+    }
 
-    update: function() {
+    update() {
         this.root.updateChildren();
         this.drawn = [];
         this.root.drawChildren();
-    },
+    }
 
-    addDrawn: function(w) {
+    addDrawn(w) {
         this.drawn.push(w);
-    },
+    }
 
-    mousePressed: function() {
+    mousePressed() {
         this.setFocused(this.sketch.mouseX, this.sketch.mouseY);
         if (this.focused) {
             this.focused.setRelMousePos();
             this.focused.press();
         }
-    },
+    }
             
-    mouseMoved: function() {
+    mouseMoved() {
         this.setFocused(this.sketch.mouseX, this.sketch.mouseY);
         if (this.focused) {
             this.focused.setRelMousePos();
             this.focused.hover();
         }
-    },
+    }
 
-    mouseDragged: function() {
+    mouseDragged() {
         this.setFocused(this.sketch.mouseX, this.sketch.mouseY);
         if (this.focused) {
             this.focused.setRelMousePos();
             this.focused.drag();
         }        
-    },
+    }
 
-    mouseReleased: function() {
+    mouseReleased() {
         this.setFocused(this.sketch.mouseX, this.sketch.mouseY);
         if (this.focused) {
             this.focused.setRelMousePos();
             this.focused.release();
         } 
-    },
+    }
 
-    setFocused: function(mx, my) {
+    setFocused(mx, my) {
         var pfocused = this.focused;
         this.focused = null;
         for (var i = this.drawn.length - 1; i >= 0; i--) {
@@ -109,6 +108,5 @@ Interface.prototype = {
         if (pfocused) {
             pfocused.lostFocus();
         }     
-    },
-
-};
+    }
+}
