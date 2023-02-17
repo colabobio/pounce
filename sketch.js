@@ -7,7 +7,7 @@ function setup() {
   // createCanvas(500, 500);
   noCanvas();
   // specify multiple formats for different browsers
-  tutorial = createVideo(['assets/Grabbite-tutorial.mp4']);
+  tutorial = createVideo(['assets/Grabbite-tutorial.mp4', 'assets/Grabbite-tutorial.webm']);
   button = createButton('play');
   button.mousePressed(toggleVid); // attach button listener
   intf = new Interface(this, 1);
