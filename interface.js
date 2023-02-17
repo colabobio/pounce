@@ -37,16 +37,16 @@ class Interface {
         }            
     }
 
-    addFont(name, size) {
-        font = this.sketch.loadFont(name, this.scaleFactor * size);
-        this.fonts[name + size.toString()] = font;
+    addFont(name) {
+        let font = this.sketch.loadFont(name);
+        this.fonts[name] = font;
     }
 
     setFont(name, size) {
-        let key = name + size.toString();
+        let key = name;
         if (key in this.fonts) {
-            font = this.fonts[key];
-            this.sketch.textFont(font);        
+            let font = this.fonts[key];
+            this.sketch.textFont(font, size);
         }
     }
 

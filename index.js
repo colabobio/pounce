@@ -1,28 +1,48 @@
-let playing = false;
+let playing = true;
 let tutorial;
 let button;
-let tbutton;
+
+function preload() {
+  tutorial = createVideo(['assets/Grabbite-tutorial.mp4', 'assets/Grabbite-tutorial.webm']);  
+  tutorial.hide();
+}
 
 function setup() {
-  createCanvas(500, 500);
-  // noCanvas();
-  // specify multiple formats for different browsers
-  tutorial = createVideo(['assets/Grabbite-tutorial.mp4', 'assets/Grabbite-tutorial.webm']);
-  button = createButton('play');
-  button.mousePressed(toggleVid); // attach button listener
+  createCanvas(1000, 600);
+
+  tutorial.loop();
+
   intf = new Interface(this, 1);
-  tbutton = new TestButton(intf, 20, 20, 100, 40, "test", sayHi);
-  intf.addWidget(tbutton);
-  print(intf);
+  intf.addFont("assets/Montserrat-Bold.ttf");
+
+  button = new TestButton(intf, 800, 20, 100, 40, "playButton", toggleVid);
+  intf.addWidget(button);  
 }
 
 function draw() {
-  background(150, 0, 0);
-  intf.update();
-}
+  background("#333333");
 
-function sayHi() {
-  print("hi!");
+  push();
+  intf.setFont("assets/Montserrat-Bold.ttf", 35);
+  fill("#D6D4D4");
+  text("Dog behavior Video Annotation", 100, 30);
+  pop();
+
+  stroke("#CBDF52");
+  line(20, 70, 640, 70);
+
+  fill("#CBDF52");
+  noStroke();
+  ellipse(20, 70, 30, 30);
+  ellipse(250, 70, 30, 30);
+
+  ellipse(460, 70, 10, 10);
+  ellipse(550, 70, 10, 10);
+  ellipse(640, 70, 10, 10);
+
+  tutorial.size(640, 360); 
+  image(tutorial, 20, 150, 640, 360);
+  intf.update();
 }
 
 function mousePressed() {
@@ -41,14 +61,11 @@ function mouseReleased() {
   intf.mouseReleased();
 }
 
-// plays or pauses the video depending on current state
 function toggleVid() {
   if (playing) {
     tutorial.pause();
-    button.html('play');
   } else {
     tutorial.loop();
-    button.html('pause');
   }
   playing = !playing;
 }
