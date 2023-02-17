@@ -32,15 +32,13 @@ function setup() {
   let gbutton = new TestButton(intf, 50, 300, 100, 40, "pounceButton", toggleVid, "grab-bite");
   intf.addWidget(gbutton, panel);
 
+  let vcontainer = new VideoContainer(intf, 0, 200, 680, 360, "vidContainer", null, [tutorial]);
+  intf.addWidget(vcontainer);
+
 }
 
 function draw() {
   background("#333333");
-
-
-
-  tutorial.size(640, 360); 
-  image(tutorial, 40, 200, 640, 360);
   intf.update();
 }
 

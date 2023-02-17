@@ -128,9 +128,43 @@ class SidePanel extends Widget {
 }
 
 class VideoContainer extends Widget {
-  constructor() {
+  constructor(intf, x, y, w, h, name, callback, videos) {
+    super(intf, x, y, w, h, name, callback);
+    this.videos = videos;
+    this.playing = false;
   }
 
   draw() {
+    let p = this.intf.sketch;
+    
+    let w = this.width;
+    let h = this.height;
+
+    let vid = this.videos[0];
+    vid.size(640, 360); 
+    p.image(vid, 40, 0, 640, 360);
+
+    p.fill(0);
+    p.ellipse(40 + w/2, h/2, 50, 50);
+    if (this.playing) {
+      p.fill("#D9D7D7");
+      p.rect(40+w/2 - 10, h/2 - 15, 5, 15);
+      p.rect(40+w/2 + 10, h/2 - 15, 5, 15);
+    } else {
+      p.fill("#D9D7D7");
+      p.triangle(40+w/2 - 10, h/2 - 10, 40+w/2 + 10, h/2, 40+w/2 - 10, h/2 + 10);
+    }
+  }
+
+  press() {
+    let vid = this.videos[0];
+
+    if (this.playing) {
+      vid.pause();
+    } else {
+      vid.loop();
+    }
+
+    this.playing = !this.playing;
   }
 }
