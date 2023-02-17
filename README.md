@@ -1,4 +1,3 @@
-## dog-videos
+## POUNCE!
 
-* Step 1: User opens the site, watches some training videos where they have to identify the puppy/action
-* Step 2: After successful training, users go through a series of videos where the pup of interest is highlighted and they would hit a button when the action of interest occured
+Demonstration of POUNCE!, an online video annotation platform for complex phenotypes that operates across desktop and mobile devices.
