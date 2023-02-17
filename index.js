@@ -15,8 +15,16 @@ function setup() {
   intf = new Interface(this, 1);
   intf.addFont("assets/Montserrat-Bold.ttf");
 
-  button = new TestButton(intf, 800, 20, 100, 40, "playButton", toggleVid);
-  intf.addWidget(button);  
+  let pbutton = new TestButton(intf, 800, 20, 100, 40, "playButton", toggleVid, "play");
+  intf.addWidget(pbutton);
+
+
+  panel = new SidePanel(intf, 700, 150, 200, 360, "sidePanel");
+  intf.addWidget(panel);
+
+  let gbutton = new TestButton(intf, 50, 300, 100, 40, "pounceButton", toggleVid, "grab-bite");
+  intf.addWidget(gbutton, panel);
+
 }
 
 function draw() {
