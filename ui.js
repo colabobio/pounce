@@ -105,7 +105,7 @@ class SidePanel extends Widget {
     super(intf, x, y, w, h, name, callback);
   }
 
-  draw() {    
+  draw() {
     let p = this.intf.sketch;
     p.noFill();
     p.stroke("#D9D7D7");
@@ -125,4 +125,12 @@ class SidePanel extends Widget {
     p.text("A snapping of the jaws closed around an object or pup. It can be let go immediately or held (including carrying)", 10, 0.45 * this.height, this.width - 20, 0.2 * this.height);
     
   }  
+}
+
+class VideoContainer extends Widget {
+  constructor() {
+  }
+
+  draw() {
+  }
 }
