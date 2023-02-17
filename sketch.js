@@ -1,12 +1,13 @@
 let playing = false;
-let fingers;
+let tutorial;
 let button;
 let tbutton;
 
 function setup() {
-  createCanvas(500, 500);
+  // createCanvas(500, 500);
+  noCanvas();
   // specify multiple formats for different browsers
-  fingers = createVideo(['assets/test2.webm', 'assets/test2.mp4']);
+  tutorial = createVideo(['assets/Grabbite-tutorial.mp4']);
   button = createButton('play');
   button.mousePressed(toggleVid); // attach button listener
   intf = new Interface(this, 1);
@@ -43,10 +44,10 @@ function mouseReleased() {
 // plays or pauses the video depending on current state
 function toggleVid() {
   if (playing) {
-    fingers.pause();
+    tutorial.pause();
     button.html('play');
   } else {
-    fingers.loop();
+    tutorial.loop();
     button.html('pause');
   }
   playing = !playing;
