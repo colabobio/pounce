@@ -1,4 +1,4 @@
-class TestButton extends Widget {
+class Button extends Widget {
   constructor(intf, x, y, w, h, name, callback, label="") {
     super(intf, x, y, w, h, name, callback);
     this.label = label;
@@ -128,19 +128,29 @@ class SidePanel extends Widget {
 }
 
 class VideoContainer extends Widget {
-  constructor(intf, x, y, w, h, name, callback, videos) {
+  constructor(intf, x, y, w, h, name, callback, cover, videos) {
     super(intf, x, y, w, h, name, callback);
-    this.videos = videos;
+    this.videos = videos;    
+    this.cover = cover;
+  }
+
+  setup() {
     this.playing = false;
+    this.first = true;
+    this.idx = 0;
   }
 
   draw() {
     let p = this.intf.sketch;
+
+    if (this.first) {
+      p.image(cover, 40, 0, 640, 360);
+    }
     
     let w = this.width;
     let h = this.height;
 
-    let vid = this.videos[0];
+    let vid = this.videos[this.idx];
     vid.size(640, 360); 
     p.image(vid, 40, 0, 640, 360);
 
@@ -157,14 +167,22 @@ class VideoContainer extends Widget {
   }
 
   press() {
-    let vid = this.videos[0];
+    let vid = this.videos[this.idx];
 
     if (this.playing) {
       vid.pause();
     } else {
-      vid.loop();
+      vid.play();
     }
 
     this.playing = !this.playing;
+    this.first = false;
+  }
+
+  nextVideo() {
+    if (this.idx < 3) {
+      this.idx++;
+      print("video ended", this.idx);
+    }   
   }
 }

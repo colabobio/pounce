@@ -1,10 +1,24 @@
-let playing = true;
-let tutorial;
-let button;
+let vcontainer;
+let videos;
+let cover;
 
 function preload() {
   tutorial = createVideo(['assets/Grabbite-tutorial.mp4', 'assets/Grabbite-tutorial.webm']);  
-  tutorial.hide();
+  tutorial.hide();  
+
+  tracking1 = createVideo(['assets/DogTracking1.mp4', 'assets/DogTracking1.webm']);
+  tracking1.hide();
+
+  tracking2 = createVideo(['assets/DogTracking2.mp4', 'assets/DogTracking2.webm']); 
+  tracking2.hide();
+
+  tracking3 = createVideo(['assets/DogTracking3.mp4', 'assets/DogTracking3.webm']);
+  tracking3.hide();
+  
+  videos = [tutorial, tracking1, tracking2, tracking3];
+
+  cover = loadImage('assets/video-cover.png');
+
 }
 
 function setup() {
@@ -14,10 +28,6 @@ function setup() {
   intf.addFont("assets/Montserrat-Bold.ttf");
   intf.addFont("assets/Montserrat-SemiBold.ttf");
   intf.addFont("assets/Montserrat-Regular.ttf");
-
-  // let pbutton = new TestButton(intf, 800, 20, 100, 40, "playButton", toggleVid, "play");
-  // intf.addWidget(pbutton);
-
 
   header = new Header(intf, 0, 0, 680, 200, "header", lmargin=40);
   intf.addWidget(header);
@@ -29,12 +39,16 @@ function setup() {
   panel = new SidePanel(intf, 750, 200, 200, 360, "sidePanel");
   intf.addWidget(panel);
 
-  let gbutton = new TestButton(intf, 50, 300, 100, 40, "pounceButton", toggleVid, "grab-bite");
+  let gbutton = new Button(intf, 50, 300, 100, 40, "pounceButton", grabSelected, "grab-bite");
   intf.addWidget(gbutton, panel);
 
-  let vcontainer = new VideoContainer(intf, 0, 200, 680, 360, "vidContainer", null, [tutorial]);
+  vcontainer = new VideoContainer(intf, 0, 200, 680, 360, "vidContainer", null, cover, videos);
   intf.addWidget(vcontainer);
 
+  tutorial.onended(videoEnded);
+  tracking1.onended(videoEnded);
+  tracking3.onended(videoEnded);
+  tracking3.onended(videoEnded);
 }
 
 function draw() {
@@ -63,11 +77,10 @@ function nextStep() {
 
 }
 
-function toggleVid() {
-  if (playing) {
-    tutorial.pause();
-  } else {
-    tutorial.loop();
-  }
-  playing = !playing;
+function grabSelected() {
+
+}
+
+function videoEnded() {
+  vcontainer.nextVideo();
 }
