@@ -3,6 +3,7 @@ let panel;
 let vcontainer;
 let nbutton;
 let gbutton;
+
 let videos;
 let startImages;
 let endImages;
@@ -45,12 +46,12 @@ function setup() {
   intf.addFont("assets/Montserrat-SemiBold.ttf");
   intf.addFont("assets/Montserrat-Regular.ttf");
 
-  header = new Header(intf, 0, 0, 680, 200, "header", lmargin=40);
+  header = new Header(intf, 0, 0, 680, 200, "header");
   intf.addWidget(header);
 
-  nbutton = new NextButton(intf, 800, 80, 40, 40, "nextButton", nextStep);
+  nbutton = new NextButton(intf, 830, 95, 40, 40, "nextButton", nextStep);
   intf.addWidget(nbutton);
-  nbutton.hide();
+  // nbutton.hide();
   
   panel = new SidePanel(intf, 750, 200, 200, 360, "sidePanel");
   intf.addWidget(panel);

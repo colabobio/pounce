@@ -42,9 +42,9 @@ class NextButton extends Widget {
     
     p.noFill();    
     p.stroke("#D9D7D7");
-    p.strokeWeight(3);
+    p.strokeWeight(4);
     p.strokeCap(p.ROUND);
-    p.line(0, 0.4 * this.height, this.width, 0.4 * this.height);
+    p.line(0.2 * this.width, 0.4 * this.height, this.width, 0.4 * this.height);
     p.line(0.7 * this.width, 0, this.width, 0.4 * this.height);
     p.line(0.7 * this.width, 0.8 * this.height, this.width, 0.4 * this.height);
 
@@ -52,7 +52,7 @@ class NextButton extends Widget {
     p.textAlign(p.CENTER, p.CENTER);
     p.noStroke();
     p.fill("#D9D7D7");
-    p.text("Next", 0, 0.8 * this.height, this.width, 0.4 * this.height);
+    p.text("Next", 0, 0.9 * this.height, this.width, 0.4 * this.height);
   }
 
   press() {
@@ -61,14 +61,14 @@ class NextButton extends Widget {
 }
 
 class Header extends Widget {
-  constructor(intf, x, y, w, h, name, lmargin) {
+  constructor(intf, x, y, w, h, name) {
     super(intf, x, y, w, h, name);
-    this.leftMargin = lmargin;    
   }
   
   setup() {
+    this.leftMargin = 40;
     this.stage = 1;
-    this.stageX = this.leftMargin;
+    this.stageX = 40;
     this.gray = "#D6D4D4"; 
     this.green = "#CBDF52";
   }
