@@ -2,6 +2,7 @@ let header;
 let panel;
 let vcontainer;
 let nbutton;
+let gbutton;
 let videos;
 let startImages;
 let endImages;
@@ -55,8 +56,9 @@ function setup() {
   intf.addWidget(panel);
   panel.showIntroText();
 
-  let gbutton = new Button(intf, 50, 300, 100, 40, "pounceButton", grabSelected, "grab-bite");
+  gbutton = new GrabBiteButton(intf, 50, 300, 100, 40, "pounceButton", grabSelected);
   intf.addWidget(gbutton, panel);
+  gbutton.deactivate();
 
   vcontainer = new VideoContainer(intf, 0, 200, 680, 360, "vidContainer", null, videos, startImages, endImages);
   intf.addWidget(vcontainer);
@@ -89,14 +91,14 @@ function mouseReleased() {
 }
 
 function grabSelected() {
-
+  print("Detected grab-bite click");
 }
 
 function tutorialEnded() {
   vcontainer.lastFrame();
   header.nextStage();
   nbutton.show();
-  panel.showNextText();
+  panel.showNextText();  
 }
 
 function nextStep() {
@@ -105,6 +107,7 @@ function nextStep() {
   vcontainer.firstFrame();  
   nbutton.hide();
   panel.showActionText();
+  gbutton.activate();
 }
 
 function videoEnded() {

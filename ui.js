@@ -1,21 +1,30 @@
-class Button extends Widget {
-  constructor(intf, x, y, w, h, name, callback, label="") {
+class GrabBiteButton extends Widget {
+  constructor(intf, x, y, w, h, name, callback) {
     super(intf, x, y, w, h, name, callback);
-    this.label = label;
   }
 
   draw() {
     let p = this.intf.sketch;
 
-    p.noFill();
+    if (this.isFocused) {
+      if (p.mouseIsPressed) {
+        p.fill("#CBDF52");
+      } else {
+        p.fill("#4c4b4b");
+      }      
+    } else {
+      p.noFill();
+    }
+    
     p.stroke("#D9D7D7");
-    p.rect(0, 0, this.width, this.height, 5);
+    p.strokeWeight(2);
+    p.rect(0, 0, this.width, this.height, 10);
 
-    this.intf.setFont("assets/Montserrat-Regular.ttf", 15);
+    this.intf.setFont("assets/Montserrat-SemiBold.ttf", 15);
     p.textAlign(p.CENTER, p.CENTER);
     p.noStroke();
     p.fill("#D9D7D7");
-    p.text(this.label, 0, 0, this.width, this.height);
+    p.text("grab-bite", 0, 0, this.width, 0.9 * this.height);
   }
 
   press() {
@@ -67,7 +76,7 @@ class Header extends Widget {
   draw() {
     let p = this.intf.sketch;
 
-    this.intf.setFont("assets/Montserrat-Bold.ttf", 30); 
+    this.intf.setFont("assets/Montserrat-Bold.ttf", 25); 
     p.fill(this.gray);
     p.textAlign(p.RIGHT, p.CENTER);
     p.text("Dog behavior Video Annotation", 0, 0, this.width + 10, 100);
@@ -108,12 +117,14 @@ class Header extends Widget {
     this.intf.setFont("assets/Montserrat-Regular.ttf", 15);
     p.fill("#D6D4D4");
 
+    
     p.textAlign(p.LEFT, p.CENTER);
-    text("Training", linex, liney + 15, 30, 30);
-    text("Analyzing", linex + 0.5 * linew, liney + 15, 30, 30);
-    text("1", linex + 0.66 * linew, liney + 15, 30, 30);
-    text("2", linex + 0.82 * linew, liney + 15, 30, 30);
-    text("3", linex + 1.00 * linew, liney + 15, 30, 30);
+    text("Learning", linex, liney + 30);
+    p.textAlign(p.CENTER, p.CENTER);
+    text("Annotating", linex + 0.5 * linew, liney + 30);
+    text("1", linex + 0.66 * linew, liney + 30);
+    text("2", linex + 0.82 * linew, liney + 30);
+    text("3", linex + 1.00 * linew, liney + 30);
 
   }
 
@@ -150,23 +161,24 @@ class SidePanel extends Widget {
     p.fill("#D9D7D7");
 
     this.intf.setFont("assets/Montserrat-SemiBold.ttf", 15);
+    var msg = ""
     if (this.stage == 1) {
-      p.text("Play the tutorial video to learn how to annotate the behaviors", 10, 10, this.width - 20, 0.2 * this.height);
+      msg = "Play the tutorial video to learn how to annotate the behaviors"
     } else if (this.stage == 2) {
-      p.text("Go to the next video to annotate the behaviors", 10, 10, this.width - 20, 0.2 * this.height);
+      msg = "Go to the next video to annotate the behaviors";
     } else if (this.stage == 3) {
-      this.intf.setFont("assets/Montserrat-SemiBold.ttf", 15);
-      p.text("Play the video and click the button when you see grab-bite behavior", 10, 10, this.width - 20, 0.2 * this.height);
+      msg = "Play the video and click the button when you see grab-bite behavior";
     } else if (this.stage == 4) {
       p.fill("#CBDF52");
-      p.text("Congratulations, you completed the training and annotation tasks!", 10, 10, this.width - 20, 0.2 * this.height);      
+      msg ="Congratulations, you completed the training and annotation tasks!";
     }
+    p.text(msg, 10, 15, this.width - 20, 0.2 * this.height);
 
     p.fill("#D9D7D7");
-    this.intf.setFont("assets/Montserrat-Bold.ttf", 10);
-    p.text("Grab-bite:", 10, 0.3 * this.height, this.width - 20, 0.1 * this.height);
+    this.intf.setFont("assets/Montserrat-Bold.ttf", 12);
+    p.text("Grab-bite:", 10, 0.37 * this.height, this.width - 20, 0.1 * this.height);
 
-    this.intf.setFont("assets/Montserrat-Regular.ttf", 10);
+    this.intf.setFont("assets/Montserrat-Regular.ttf", 12);
     p.text("A snapping of the jaws closed around an object or pup. It can be let go immediately or held (including carrying)", 10, 0.45 * this.height, this.width - 20, 0.2 * this.height);
     
   }
