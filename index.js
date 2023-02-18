@@ -1,3 +1,4 @@
+let intf;
 let header;
 let panel;
 let vcontainer;

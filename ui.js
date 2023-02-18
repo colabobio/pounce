@@ -40,8 +40,13 @@ class NextButton extends Widget {
   draw() {
     let p = this.intf.sketch;
     
-    p.noFill();    
-    p.stroke("#D9D7D7");
+    p.noFill();
+    if (this.isFocused) {
+      p.stroke("#CBDF52");
+    } else {
+      p.stroke("#D9D7D7");
+    }
+    
     p.strokeWeight(4);
     p.strokeCap(p.ROUND);
     p.line(0.2 * this.width, 0.4 * this.height, this.width, 0.4 * this.height);
@@ -51,7 +56,11 @@ class NextButton extends Widget {
     this.intf.setFont("assets/Montserrat-Regular.ttf", 15);
     p.textAlign(p.CENTER, p.CENTER);
     p.noStroke();
-    p.fill("#D9D7D7");
+    if (this.isFocused) {
+      p.fill("#CBDF52");
+    } else {
+      p.fill("#D9D7D7");
+    }
     p.text("Next", 0, 0.9 * this.height, this.width, 0.4 * this.height);
   }
 
