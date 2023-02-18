@@ -1,6 +1,10 @@
+let header;
+let panel;
 let vcontainer;
+let nbutton;
 let videos;
-let cover;
+let startImages;
+let endImages;
 
 function preload() {
   tutorial = createVideo(['assets/Grabbite-tutorial.mp4', 'assets/Grabbite-tutorial.webm']);  
@@ -17,8 +21,19 @@ function preload() {
   
   videos = [tutorial, tracking1, tracking2, tracking3];
 
-  cover = loadImage('assets/video-cover.png');
+  tutorialStart = loadImage('assets/Grabbite-tutorial-start.png');
+  track1Start = loadImage('assets/DogTracking1-start.png');
+  track2Start = loadImage('assets/DogTracking2-start.png');
+  track3Start = loadImage('assets/DogTracking3-start.png');
 
+  startImages = [tutorialStart, track1Start, track2Start, track3Start]
+
+  tutorialEnd = loadImage('assets/Grabbite-tutorial-end.png');
+  track1End = loadImage('assets/DogTracking1-end.png');
+  track2End = loadImage('assets/DogTracking2-end.png');
+  track3End = loadImage('assets/DogTracking3-end.png');
+
+  endImages = [tutorialEnd, track1End, track2End, track3End]
 }
 
 function setup() {
@@ -32,22 +47,23 @@ function setup() {
   header = new Header(intf, 0, 0, 680, 200, "header", lmargin=40);
   intf.addWidget(header);
 
-  let nbutton = new NextButton(intf, 800, 80, 40, 40, "nextButton", nextStep);
+  nbutton = new NextButton(intf, 800, 80, 40, 40, "nextButton", nextStep);
   intf.addWidget(nbutton);
+  nbutton.hide();
   
-
   panel = new SidePanel(intf, 750, 200, 200, 360, "sidePanel");
   intf.addWidget(panel);
+  panel.showIntroText();
 
   let gbutton = new Button(intf, 50, 300, 100, 40, "pounceButton", grabSelected, "grab-bite");
   intf.addWidget(gbutton, panel);
 
-  vcontainer = new VideoContainer(intf, 0, 200, 680, 360, "vidContainer", null, cover, videos);
+  vcontainer = new VideoContainer(intf, 0, 200, 680, 360, "vidContainer", null, videos, startImages, endImages);
   intf.addWidget(vcontainer);
 
-  tutorial.onended(videoEnded);
+  tutorial.onended(tutorialEnded);
   tracking1.onended(videoEnded);
-  tracking3.onended(videoEnded);
+  tracking2.onended(videoEnded);
   tracking3.onended(videoEnded);
 }
 
@@ -72,15 +88,31 @@ function mouseReleased() {
   intf.mouseReleased();
 }
 
-function nextStep() {
-
-
-}
-
 function grabSelected() {
 
 }
 
-function videoEnded() {
+function tutorialEnded() {
+  vcontainer.lastFrame();
+  header.nextStage();
+  nbutton.show();
+  panel.showNextText();
+}
+
+function nextStep() {
+  header.nextStage();
   vcontainer.nextVideo();
+  vcontainer.firstFrame();  
+  nbutton.hide();
+  panel.showActionText();
+}
+
+function videoEnded() {
+  vcontainer.lastFrame();
+  if (vcontainer.idx == 3) {
+    panel.showCongratulations();
+  } else {
+    panel.showNextText();
+    nbutton.show();
+  }
 }
