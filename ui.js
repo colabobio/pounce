@@ -1,6 +1,6 @@
 class GrabBiteButton extends Widget {
-  constructor(intf, x, y, w, h, name, callback) {
-    super(intf, x, y, w, h, name, callback);
+  constructor(intf, x, y, w, h, callback) {
+    super(intf, x, y, w, h, null, callback);
   }
 
   draw() {
@@ -33,8 +33,8 @@ class GrabBiteButton extends Widget {
 }
 
 class NextButton extends Widget {
-  constructor(intf, x, y, w, h, name, callback) {
-    super(intf, x, y, w, h, name, callback);
+  constructor(intf, x, y, w, h, callback) {
+    super(intf, x, y, w, h, null, callback);
   }
 
   draw() {
@@ -70,14 +70,10 @@ class NextButton extends Widget {
 }
 
 class Header extends Widget {
-  constructor(intf, x, y, w, h, name) {
-    super(intf, x, y, w, h, name);
-  }
-  
   setup() {
     this.leftMargin = 40;
     this.stage = 1;
-    this.stageX = 40;
+    this.stageX = new SoftFloat(40);
     this.gray = "#D6D4D4"; 
     this.green = "#CBDF52";
   }
@@ -99,8 +95,10 @@ class Header extends Widget {
     p.stroke(this.gray);    
     line(linex, liney, this.width, liney);
 
+    this.stageX.update();
     stroke(this.green);
-    let x = this.stageX;
+    strokeWeight(2);
+    let x = this.stageX.get();
     line(linex, liney, x, liney);
   
     noStroke();
@@ -143,13 +141,13 @@ class Header extends Widget {
     let linew = this.width - linex;
 
     if (this.stage == 2) {
-      this.stageX = linex + 0.5 * linew;
+      this.stageX.setTarget(linex + 0.5 * linew);
     } else if (this.stage == 3) {
-      this.stageX = linex + 0.66 * linew;
+      this.stageX.setTarget(linex + 0.66 * linew);
     } else if (this.stage == 5) {
-      this.stageX = linex + 0.82 * linew;
+      this.stageX.setTarget(linex + 0.82 * linew);
     } else if (this.stage == 7) {
-      this.stageX = linex + 1.00 * linew;
+      this.stageX.setTarget(linex + 1.00 * linew);
     }
   }
 }
@@ -210,8 +208,8 @@ class SidePanel extends Widget {
 }
 
 class VideoContainer extends Widget {
-  constructor(intf, x, y, w, h, name, callback, videos, startImages, endImages) {
-    super(intf, x, y, w, h, name, callback);
+  constructor(intf, x, y, w, h, videos, startImages, endImages) {
+    super(intf, x, y, w, h, null, null);
     this.videos = videos;    
     this.startImages = startImages;
     this.endImages = endImages;

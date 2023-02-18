@@ -47,22 +47,22 @@ function setup() {
   intf.addFont("assets/Montserrat-SemiBold.ttf");
   intf.addFont("assets/Montserrat-Regular.ttf");
 
-  header = new Header(intf, 0, 0, 680, 200, "header");
+  header = new Header(intf, 0, 0, 680, 200);
   intf.addWidget(header);
 
-  nbutton = new NextButton(intf, 830, 95, 40, 40, "nextButton", nextStep);
+  nbutton = new NextButton(intf, 830, 95, 40, 40, nextStep);
   intf.addWidget(nbutton);
   nbutton.hide();
   
-  panel = new SidePanel(intf, 750, 200, 200, 360, "sidePanel");
+  panel = new SidePanel(intf, 750, 200, 200, 360);
   intf.addWidget(panel);
   panel.showIntroText();
 
-  gbutton = new GrabBiteButton(intf, 50, 300, 100, 40, "pounceButton", grabSelected);
+  gbutton = new GrabBiteButton(intf, 50, 300, 100, 40, grabBiteClicked);
   intf.addWidget(gbutton, panel);
   gbutton.deactivate();
 
-  vcontainer = new VideoContainer(intf, 0, 200, 680, 360, "vidContainer", null, videos, startImages, endImages);
+  vcontainer = new VideoContainer(intf, 0, 200, 680, 360, videos, startImages, endImages);
   intf.addWidget(vcontainer);
 
   tutorial.onended(tutorialEnded);
@@ -92,7 +92,7 @@ function mouseReleased() {
   intf.mouseReleased();
 }
 
-function grabSelected() {
+function grabBiteClicked() {
   print("Detected grab-bite click");
 }
 
@@ -117,6 +117,7 @@ function videoEnded() {
   vcontainer.lastFrame();
   if (vcontainer.idx == 3) {
     panel.showCongratulations();
+    gbutton.deactivate();
   } else {
     panel.showNextText();
     nbutton.show();
