@@ -52,7 +52,7 @@ function setup() {
 
   nbutton = new NextButton(intf, 830, 95, 40, 40, "nextButton", nextStep);
   intf.addWidget(nbutton);
-  // nbutton.hide();
+  nbutton.hide();
   
   panel = new SidePanel(intf, 750, 200, 200, 360, "sidePanel");
   intf.addWidget(panel);

@@ -242,21 +242,23 @@ class VideoContainer extends Widget {
 
     if (this.playing) {
       if (this.isFocused) {
+        let d = 10;
         p.fill(0);
         p.stroke("#D9D7D7");
         p.strokeWeight(2);
         p.ellipse(40 + w/2, h/2, 50, 50);      
         p.fill("#D9D7D7");
-        p.rect(40+w/2 - 10, h/2 - 15, 5, 15);
-        p.rect(40+w/2 + 10, h/2 - 15, 5, 15);
+        p.rect(40 + w/2 - 12, h/2 - 12, 7, 22);
+        p.rect(40 + w/2 + 5, h/2 - 12, 7, 22);
       }
     } else if (!this.showLastFrame) {
+      let d = 5;
       p.fill(0);
       p.stroke("#D9D7D7");
       p.strokeWeight(2);      
       p.ellipse(40 + w/2, h/2, 50, 50); 
       p.fill("#D9D7D7");
-      p.triangle(40+w/2 - 10, h/2 - 10, 40+w/2 + 10, h/2, 40+w/2 - 10, h/2 + 10);
+      p.triangle(40 + w/2 - d, h/2 - 10, 40 + w/2 + 10, h/2, 40 + w/2 - d, h/2 + 10);
     }
   }
 
