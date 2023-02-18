@@ -131,8 +131,6 @@ class Header extends Widget {
     } else if (this.stage == 7) {
       this.stageX = linex + 1.00 * linew;
     }
-
-    print(this.stage);
   }
 }
 
@@ -222,13 +220,19 @@ class VideoContainer extends Widget {
     }
 
     if (this.playing) {
-      p.fill(0);
-      p.ellipse(40 + w/2, h/2, 50, 50);      
-      p.fill("#D9D7D7");
-      p.rect(40+w/2 - 10, h/2 - 15, 5, 15);
-      p.rect(40+w/2 + 10, h/2 - 15, 5, 15);
+      if (this.isFocused) {
+        p.fill(0);
+        p.stroke("#D9D7D7");
+        p.strokeWeight(2);
+        p.ellipse(40 + w/2, h/2, 50, 50);      
+        p.fill("#D9D7D7");
+        p.rect(40+w/2 - 10, h/2 - 15, 5, 15);
+        p.rect(40+w/2 + 10, h/2 - 15, 5, 15);
+      }
     } else if (!this.showLastFrame) {
       p.fill(0);
+      p.stroke("#D9D7D7");
+      p.strokeWeight(2);      
       p.ellipse(40 + w/2, h/2, 50, 50); 
       p.fill("#D9D7D7");
       p.triangle(40+w/2 - 10, h/2 - 10, 40+w/2 + 10, h/2, 40+w/2 - 10, h/2 + 10);
