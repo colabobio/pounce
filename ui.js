@@ -6,11 +6,7 @@ class Button extends Widget {
 
   draw() {
     let p = this.intf.sketch;
-    // if (this.isFocused) {
-    //   p.fill(0, 255, 0);
-    // } else {
-    //   p.fill(255);
-    // } 
+
     p.noFill();
     p.stroke("#D9D7D7");
     p.rect(0, 0, this.width, this.height, 5);
@@ -97,15 +93,15 @@ class Header extends Widget {
     else fill(this.gray);
     ellipse(linex + 0.5 * linew, liney, rad1, rad1);
   
-    if (2 < this.stage) fill(this.green);
+    if (3 < this.stage) fill(this.green);
     else fill(this.gray);
     ellipse(linex + 0.66 * linew, liney, rad2, rad2);
 
-    if (3 < this.stage) fill(this.green);
+    if (5 < this.stage) fill(this.green);
     else fill(this.gray);
     ellipse(linex + 0.82 * linew, liney, rad2, rad2);
 
-    if (4 < this.stage) fill(this.green);
+    if (7 < this.stage) fill(this.green);
     else fill(this.gray);
     ellipse(linex + 1.00 * linew, liney, rad2, rad2);
     
@@ -130,11 +126,13 @@ class Header extends Widget {
       this.stageX = linex + 0.5 * linew;
     } else if (this.stage == 3) {
       this.stageX = linex + 0.66 * linew;
-    } else if (this.stage == 4) {
-      this.stageX = linex + 0.82 * linew;
     } else if (this.stage == 5) {
+      this.stageX = linex + 0.82 * linew;
+    } else if (this.stage == 7) {
       this.stageX = linex + 1.00 * linew;
     }
+
+    print(this.stage);
   }
 }
 
@@ -256,7 +254,6 @@ class VideoContainer extends Widget {
   nextVideo() {
     if (this.idx < 3) {
       this.idx++;
-      print("video ended", this.idx);
     } 
   }
 

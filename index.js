@@ -108,6 +108,7 @@ function nextStep() {
 }
 
 function videoEnded() {
+  header.nextStage();
   vcontainer.lastFrame();
   if (vcontainer.idx == 3) {
     panel.showCongratulations();
