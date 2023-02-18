@@ -71,11 +71,15 @@ class NextButton extends Widget {
 
 class Header extends Widget {
   setup() {
-    this.leftMargin = 40;
-    this.stage = 1;
-    this.stageX = new SoftFloat(40);
+    this.leftMargin = 40;    
     this.gray = "#D6D4D4"; 
     this.green = "#CBDF52";
+
+    this.stage = 0;
+    this.frac = 0;
+    this.pstageX = 40;
+    this.stageX = 40;
+    this.nextStage();
   }
 
   draw() {
@@ -94,11 +98,10 @@ class Header extends Widget {
     
     p.stroke(this.gray);    
     line(linex, liney, this.width, liney);
-
-    this.stageX.update();
+    
     stroke(this.green);
-    strokeWeight(2);
-    let x = this.stageX.get();
+    strokeWeight(3);
+    let x = (1 - this.frac) * this.pstageX + this.frac * this.stageX;
     line(linex, liney, x, liney);
   
     noStroke();
@@ -132,23 +135,28 @@ class Header extends Widget {
     text("1", linex + 0.66 * linew, liney + 30);
     text("2", linex + 0.82 * linew, liney + 30);
     text("3", linex + 1.00 * linew, liney + 30);
-
   }
 
   nextStage() {
     this.stage++;
     let linex = this.leftMargin;
     let linew = this.width - linex;
-
-    if (this.stage == 2) {
-      this.stageX.setTarget(linex + 0.5 * linew);
-    } else if (this.stage == 3) {
-      this.stageX.setTarget(linex + 0.66 * linew);
+    
+    this.pstageX = this.stageX;
+    if (this.stage == 1) {
+      this.stageX = linex + 0.5 * linew;
+    } else if (this.stage == 3) {      
+      this.stageX = linex + 0.66 * linew;
     } else if (this.stage == 5) {
-      this.stageX.setTarget(linex + 0.82 * linew);
+      this.stageX = linex + 0.82 * linew;
     } else if (this.stage == 7) {
-      this.stageX.setTarget(linex + 1.00 * linew);
+      this.stageX = linex + 1.00 * linew;
     }
+    this.frac = 0;
+  }
+
+  setVideoFraction(f) {
+    this.frac = f;
   }
 }
 
@@ -204,15 +212,16 @@ class SidePanel extends Widget {
 
   showCongratulations() {
     this.stage = 4
-  }  
+  }
 }
 
 class VideoContainer extends Widget {
-  constructor(intf, x, y, w, h, videos, startImages, endImages) {
+  constructor(intf, x, y, w, h, videos, startImages, endImages, header) {
     super(intf, x, y, w, h, null, null);
     this.videos = videos;    
     this.startImages = startImages;
     this.endImages = endImages;
+    this.header;
   }
 
   setup() {
@@ -236,6 +245,9 @@ class VideoContainer extends Widget {
       let vid = this.videos[this.idx];
       vid.size(640, 360); 
       p.image(vid, 40, 0, 640, 360);
+      // https://creative-coding.decontextualize.com/video/
+      let completion = vid.time() / vid.duration();
+      header.setVideoFraction(completion);
     }
 
     if (this.playing) {

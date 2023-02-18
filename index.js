@@ -62,7 +62,7 @@ function setup() {
   intf.addWidget(gbutton, panel);
   gbutton.deactivate();
 
-  vcontainer = new VideoContainer(intf, 0, 200, 680, 360, videos, startImages, endImages);
+  vcontainer = new VideoContainer(intf, 0, 200, 680, 360, videos, startImages, endImages, header);
   intf.addWidget(vcontainer);
 
   tutorial.onended(tutorialEnded);
