@@ -1,6 +1,6 @@
-class SoftFloat {
+class LinearFloat {
     constructor(v0) {
-      this.duration = 1.0;
+      this.duration = 2.0;
 
       this.value = v0;
       this.source = v0;
@@ -38,11 +38,11 @@ class SoftFloat {
 
         if (this.targeting) {
             this.t = Date.now();
-            let delta = this.t - this.start;
+            let delta = (this.t - this.start) / 1000;
             let frac = delta / this.duration;
             this.value = (1 - frac) * this.source + frac * this.target;
 
-            if (Math.abs(this.target - this.value) <= 0.0001) {
+            if (frac < 1) {
                 return true;
             }
             // arrived, set it to the target value to prevent rounding error
@@ -60,7 +60,6 @@ class SoftFloat {
     setTarget(t) {
         this.targeting = true;
         this.target = t;
-        this.source = this.value;
         this.start = Date.now();
     }
   

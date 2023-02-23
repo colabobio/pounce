@@ -222,6 +222,7 @@ class VideoContainer extends Widget {
     this.startImages = startImages;
     this.endImages = endImages;
     this.header;
+    this.alpha = new LinearFloat(255);
   }
 
   setup() {
@@ -239,6 +240,11 @@ class VideoContainer extends Widget {
 
     if (this.showFirstFrame) {
       p.image(this.startImages[this.idx], 40, 0, 640, 360);
+      if (1 <= this.idx && this.alpha.targeting) {
+        this.alpha.update();
+        p.tint(255, this.alpha.get());
+        p.image(this.endImages[this.idx - 1], 40, 0, 640, 360);  
+      } 
     } else if (this.showLastFrame) {
       p.image(this.endImages[this.idx], 40, 0, 640, 360);
     } else {
@@ -291,6 +297,7 @@ class VideoContainer extends Widget {
   nextVideo() {
     if (this.idx < 3) {
       this.idx++;
+      this.alpha.setTarget(0);
     } 
   }
 
